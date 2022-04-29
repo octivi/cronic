@@ -44,7 +44,7 @@ else
   ERR="${TRACE}"
 fi
 
-if [ ${RESULT} -ne 0 ] || [ -s "${ERR}" ]; then
+if [[ ${RESULT} -ne 0 || -s "${ERR}" ]]; then
   echo "Cronic detected failure or error output for the command:"
   echo "$@"
   echo
@@ -55,7 +55,7 @@ if [ ${RESULT} -ne 0 ] || [ -s "${ERR}" ]; then
   echo
   echo "STANDARD OUTPUT:"
   cat "${OUT}"
-  if [ "${TRACE}" != "${ERR}" ]; then
+  if [[ "${TRACE}" != "${ERR}" ]]; then
     echo
     echo "TRACE-ERROR OUTPUT:"
     cat "${TRACE}"
