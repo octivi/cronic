@@ -37,29 +37,29 @@ set -e
 PATTERN="^${PS4:0:1}\\+${PS4:1}"
 if grep -aq "$PATTERN" "$TRACE"
 then
-    grep -av "$PATTERN" "$TRACE" > "$ERR" && exit 1
+  grep -av "$PATTERN" "$TRACE" > "$ERR" && exit 1
 else
-    ERR=$TRACE
+  ERR=$TRACE
 fi
 
 if [ $RESULT -ne 0 ] || [ -s "$ERR" ]
-    then
-    echo "Cronic detected failure or error output for the command:"
-    echo "$@"
+  then
+  echo "Cronic detected failure or error output for the command:"
+  echo "$@"
+  echo
+  echo "RESULT CODE: $RESULT"
+  echo
+  echo "ERROR OUTPUT:"
+  cat "$ERR"
+  echo
+  echo "STANDARD OUTPUT:"
+  cat "$OUT"
+  if [ "$TRACE" != "$ERR" ]
+  then
     echo
-    echo "RESULT CODE: $RESULT"
-    echo
-    echo "ERROR OUTPUT:"
-    cat "$ERR"
-    echo
-    echo "STANDARD OUTPUT:"
-    cat "$OUT"
-    if [ "$TRACE" != "$ERR" ]
-    then
-        echo
-        echo "TRACE-ERROR OUTPUT:"
-        cat "$TRACE"
-    fi
+    echo "TRACE-ERROR OUTPUT:"
+    cat "$TRACE"
+  fi
 fi
 
 rm -rf "$TMP"
