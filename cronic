@@ -1,8 +1,26 @@
 #!/bin/bash
 
 # Cronic v3 - cron job report wrapper
-# Copyright 2007-2016 Chuck Houpt. No rights reserved, whatsoever.
+# Copyright 2018-2022  IMAGIN Sp. z o.o.
+# Copyright 2007-2016  Chuck Houpt. No rights reserved, whatsoever.
+# Author: Marcin Engelmann <mengelmann@imagin.pl>
+#
 # Public Domain CC0: http://creativecommons.org/publicdomain/zero/1.0/
+#
+# Cronic is a shell script to help control the most annoying feature of cron:
+# unwanted emailed output, or "cram" (cron spam).
+#
+# Cronic is a small shim shell script for wrapping cron jobs so that cron only
+# sends email when an error has occurred. Cronic defines an error as any non-trace
+# error output or a non-zero result code. Cronic filters Bash execution traces
+# (or anything matching PS4) from the error output, so jobs can be run with
+# execution tracing to aid forensic debugging. Cronic has no options, it simply
+# executes its arguments.
+#
+# The Disease:
+#   0 1 * * * backup >/dev/null 2>&1
+# The Cure:
+#   0 1 * * * cronic backup
 
 set -eu
 
