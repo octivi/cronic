@@ -26,6 +26,17 @@
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -o errexit -o nounset -o pipefail
 
+function cleanup() {
+  local -r RET=$?
+
+  [[ -v TMP ]] && [[ -d "${TMP}" ]] && rm -rf "${TMP}"
+
+  exit "${RET}"
+}
+
+# Clean up on script exit.
+trap cleanup EXIT
+
 
 TMP="$(mktemp -d)"
 OUT="${TMP}/cronic.out"
@@ -61,5 +72,3 @@ if [[ ${RESULT} -ne 0 || -s "${ERR}" ]]; then
     cat "${TRACE}"
   fi
 fi
-
-rm -rf "${TMP}"
