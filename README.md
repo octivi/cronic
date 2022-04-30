@@ -1,9 +1,11 @@
-See http://habilis.net/cronic/
-
 # Cronic
 
+This is enhanced version of [cronic](https://habilis.net/cronic/) originaly created by
+[Chuck Houpt](http://habilis.net/chuck/).
+
 ## A cure for Cron's chronic email problem
-By [Chuck Houpt](https://habilis.net/chuck/)
+
+By [Chuck Houpt](https://habilis.net/chuck/).
 
 The Disease:
 
@@ -13,12 +15,12 @@ The Cure:
 
     0 1 * * * cronic backup
 
-[Cronic](https://habilis.net/cronic/cronic) is a shell script to help control
-the most annoying feature of [cron](https://en.wikipedia.org/wiki/Cron):
-unwanted emailed output, or "cram" (cron spam). If the [Unix Haters
-list](http://web.archive.org/web/20160930164205/http://www.mindspring.com/~blackhart/)
-was still active, I would submit the rant below to gain membership.
-- [Chuck Houpt](http://habilis.net/chuck/)
+> [Cronic](https://habilis.net/cronic/) is a shell script to help control
+> the most annoying feature of [cron](https://en.wikipedia.org/wiki/Cron):
+> unwanted emailed output, or "cram" (cron spam). If the [Unix Haters
+> list](http://web.archive.org/web/20160930164205/http://www.mindspring.com/~blackhart/)
+> was still active, I would submit the rant below to gain membership.
+> -- [Chuck Houpt](http://habilis.net/chuck/)
 
 ## The Disease
 
@@ -39,7 +41,7 @@ It is almost impossible to create a non-trivial cron job that is quiet enough
 to run without output, but still reports all errors. Following the principle of
 ["Worse is Better"](http://www.jwz.org/doc/worse-is-better.html), the typical
 solution is to sweep it all under the carpet by redirecting all output to
-/dev/null, and hoping for the best:
+`/dev/null`, and hoping for the best:
 
     0 1 * * * backup >/dev/null 2>&1
 
@@ -54,7 +56,7 @@ So if it isn't broken, it isn't cron. The only solution left is a work-around.
 
 ## The Cure: Cronic
 
-Download: [cronic](http://habilis.net/cronic/cronic) v3
+Download [Cronic](https://github.com/octivi/cronic/releases).
 
 Cronic is a small shim shell script for wrapping cron jobs so that cron only
 sends email when an error has occurred. Cronic defines an error as any
@@ -67,10 +69,10 @@ debugging.  Cronic has no options, it simply executes its arguments.
 
     0 1 * * * cronic backup
 
-With cronic, you can turn on Bash's strict error handling and debug options
+With Cronic, you can turn on Bash's strict error handling and debug options
 ([exit on error, unset variable detection and execution
 tracing](http://www.gnu.org/software/bash/manual/bashref.html#The-Set-Builtin))
-to make sure problems are caught early.  For example:
+to make sure problems are caught early. For example:
 
     #!/bin/bash
 
@@ -105,19 +107,20 @@ put error messages in context.  An example:
 
 ### Version History
 
-* [v3](https://habilis.net/cronic/cronic-v3) - Use mktemp-d to avoid
-    race-conditions and security problems.
-* v2 - Corrected command evaluation, so shell meta-chars are preserved
+- [v3-octivi](https://github.com/octivi/cronic/releases) - Refactor and fix
+    errors reported by [shellcheck](https://www.shellcheck.net/).
+- v3 - Use mktemp-d to avoid race-conditions and security problems.
+- v2 - Corrected command evaluation, so shell meta-chars are preserved
     correctly (Thanks to Frank Wallingford for the fix).
-* v1 - Initial release.
+- v1 - Initial release.
 
-### Releated Projects
+### Related Projects
 
 Cronic isn't the only cure for cron. Cronic's main advantage it is small,
 simple and a shell script. There are several C-based cron wrapper programs with
 many additional capabilities and options:
 
-* [Shush](http://web.taranis.org/shush/): a C-based cron wrapper, with multiple
+- [Shush](http://web.taranis.org/shush/): a C-based cron wrapper, with multiple
     report formats, syslogging, etc.
-* [Cronwrap](http://www.uow.edu.au/~sah/cronwrap.html): a C-based cron wrapper,
-    with time-out control, logging, etc.
+- [Cronwrap](https://pypi.org/project/cronwrap/): a Python cron job wrapper that
+    wraps jobs and enables better error reporting and command timeouts.
