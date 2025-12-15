@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create release
+    runs-on: ubuntu-latest
+    env:
+      ORG_NAME: ${{ github.event.repository.owner.login }}
+      REPO_NAME: ${{ github.event.repository.name }}
+      TAG_NAME: ${{ github.ref_name }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # required so the tag that triggered the workflow is available
+
+      - name: Generate SHA256 checksum
+        run: |
+          sha256sum "${{ env.REPO_NAME }}" > "${{ env.REPO_NAME }}.sha256"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./${{ env.REPO_NAME }}
+            ./${{ env.REPO_NAME }}.sha256
+          body: |
+            ## Install
+
+            ```
+            sudo curl -fL -o /usr/local/bin/${{ env.REPO_NAME }} https://github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}/releases/download/${{ env.TAG_NAME }}/${{ env.REPO_NAME }}
+            sudo chmod +x /usr/local/bin/${{ env.REPO_NAME }}
+            ```
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
