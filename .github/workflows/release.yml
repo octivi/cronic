@@ -11,6 +11,12 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release (e.g. v1.1.1)"
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -22,12 +28,14 @@ jobs:
     env:
       ORG_NAME: ${{ github.event.repository.owner.login }}
       REPO_NAME: ${{ github.event.repository.name }}
-      TAG_NAME: ${{ github.ref_name }}
+      TAG_NAME: ${{ inputs.tag || github.ref_name }}
+
     steps:
-      - name: Checkout repository
+      - name: Checkout repository at tag
         uses: actions/checkout@v6
         with:
-          fetch-depth: 0 # required so the tag that triggered the workflow is available
+          fetch-depth: 0
+          ref: refs/tags/${{ env.TAG_NAME }} # checkout a tag, even for workflow_dispatch
 
       - name: Generate SHA256 checksum
         run: |
@@ -36,6 +44,7 @@ jobs:
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ env.TAG_NAME }}
           files: |
             ./${{ env.REPO_NAME }}
             ./${{ env.REPO_NAME }}.sha256
