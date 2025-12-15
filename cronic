@@ -1,11 +1,15 @@
 #!/bin/bash
-
-# Cronic v3 - cron job report wrapper
-# Copyright 2018-2025  IMAGIN sp. z o.o.
-# Copyright 2007-2016  Chuck Houpt. No rights reserved, whatsoever.
-# Author: Marcin Engelmann <mengelmann@imagin.pl>
+# SPDX-FileCopyrightText: 2018-2025  IMAGIN sp. z o.o.
+# SPDX-FileCopyrightText: 2007-2016  Chuck Houpt. No rights reserved, whatsoever.
+# SPDX-FileContributor: Marcin Engelmann <mengelmann@octivi.com>
+# SPDX-License-Identifier: CC0-1.0
+#
+# This file is part of the configuration created by Octivi's DevOps team.
+# Details at https://octivi.com/devops
 #
 # Public Domain CC0: http://creativecommons.org/publicdomain/zero/1.0/
+#
+# Cronic v3 - cron job report wrapper
 #
 # Cronic is a shell script to help control the most annoying feature of cron:
 # unwanted emailed output, or "cram" (cron spam).
