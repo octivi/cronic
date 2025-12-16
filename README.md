@@ -105,7 +105,40 @@ put error messages in context.  An example:
     + cp -rp data2 /backup
     cp: data2: Permission denied
 
-### Version History
+## Installation
+
+### Manual
+
+Just download and grant execution (x) permission to `cronic`
+
+```bash
+# or https://github.com/octivi/cronic/releases/latest/download/cronic if you want always latest release
+sudo curl -fL -o /usr/local/bin/cronic https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic
+sudo chmod +x /usr/local/bin/cronic
+```
+
+### Ansible
+
+One simple task to install `cronic`
+
+```
+- name: 'Install cronic'
+  ansible.builtin.get_url:
+    # or https://github.com/octivi/cronic/releases/latest/download/cronic if you want always latest release
+    url: 'https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic'
+    dest: '/usr/local/bin/cronic'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+    # or https://github.com/octivi/cronic/releases/latest/download/cronic.sha256 if you want always latest release
+    checksum: 'sha256:https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic.sha256'
+  register: '__cronic_download'
+  until: __cronic_download is succeeded
+  retries: 5
+  delay: 2
+```
+
+## Version History
 
 - [v3-octivi](https://github.com/octivi/cronic/releases) - Refactor and fix
     errors reported by [shellcheck](https://www.shellcheck.net/).
@@ -114,7 +147,7 @@ put error messages in context.  An example:
     correctly (Thanks to Frank Wallingford for the fix).
 - v1 - Initial release.
 
-### Related Projects
+## Related Projects
 
 Cronic isn't the only cure for cron. Cronic's main advantage it is small,
 simple and a shell script. There are several C-based cron wrapper programs with
