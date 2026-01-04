@@ -24,6 +24,10 @@ on:
         description: "Directories to scan (space-separated), e.g. '. src scripts'"
         required: false
         default: "."
+      exclude_paths:
+        description: "Paths to exclude (space-separated), e.g. '.github/workflows build'"
+        required: false
+        default: ".github/workflows"
 
 permissions:
   contents: write
@@ -49,13 +53,20 @@ jobs:
 
           current_year="$(date +%Y)"
           targets="${{ github.event.inputs.targets || '.' }}"
+          exclude_paths="${{ github.event.inputs.exclude_paths || '.github/workflows' }}"
 
           read -r -a DIRS <<< "${targets}"
+          read -r -a EXCLUDES <<< "${exclude_paths}"
+
+          prune_args=()
+          for exclude in "${EXCLUDES[@]}"; do
+            prune_args+=(-path "./${exclude}" -prune -o)
+          done
 
           for dir in "${DIRS[@]}"; do
             [[ -d "${dir}" ]] || continue
 
-            find "${dir}" -type f -print0 | while IFS= read -r -d '' file; do
+            find "${dir}" "${prune_args[@]}" -type f -print0 | while IFS= read -r -d '' file; do
               if [[ "$(file --mime-type --brief "${file}")" == text/* ]]; then
                 # 1) Update: YYYY or YYYY-YYYY -> YYYY-<current_year>
                 sed \
