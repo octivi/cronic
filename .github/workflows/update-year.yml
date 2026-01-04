@@ -17,7 +17,7 @@ name: Update year header (scheduled PR)
 
 on:
   schedule:
-    - cron: "15 2 1 1 *" # Jan 1st, 02:15 UTC
+    - cron: "15 2 5 1 *" # Jan 5th, 02:15 UTC
   workflow_dispatch:
     inputs:
       targets:
