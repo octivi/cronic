@@ -72,14 +72,14 @@ jobs:
                 sed \
                   --regexp-extended \
                   --in-place \
-                  "s/^(# SPDX-FileCopyrightText:\s*)([0-9]{4})(-[0-9]{4})?(  IMAGIN [sS]p\. z o\.o\.)$/\1\2-${current_year}\4/" \
+                  "s/^(.*Copyright.*)([0-9]{4})(-[0-9]{4})?(  IMAGIN [sS]p\. z o\.o\.)$/\1\2-${current_year}\4/" \
                   "${file}"
 
                 # 2) Guard: collapse YYYY-YYYY back to YYYY (prevents 2025-2025)
                 sed \
                   --regexp-extended \
                   --in-place \
-                  "s/^(# SPDX-FileCopyrightText:\s*)([0-9]{4})-\2(  IMAGIN [sS]p\. z o\.o\.)$/\1\2\3/" \
+                  "s/^(.*Copyright.*)([0-9]{4})-\2(  IMAGIN [sS]p\. z o\.o\.)$/\1\2\3/" \
                   "${file}"
               fi
             done
