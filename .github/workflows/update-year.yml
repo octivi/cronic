@@ -69,17 +69,12 @@ jobs:
             find "${dir}" "${prune_args[@]}" -type f -print0 | while IFS= read -r -d '' file; do
               if [[ "$(file --mime-type --brief "${file}")" == text/* ]]; then
                 # 1) Update: YYYY or YYYY-YYYY -> YYYY-<current_year>
-                sed \
-                  --regexp-extended \
-                  --in-place \
-                  "s/^(.*Copyright.*)([0-9]{4})(-[0-9]{4})?(  IMAGIN [sS]p\. z o\.o\.)$/\1\2-${current_year}\4/" \
-                  "${file}"
-
                 # 2) Guard: collapse YYYY-YYYY back to YYYY (prevents 2025-2025)
                 sed \
                   --regexp-extended \
                   --in-place \
-                  "s/^(.*Copyright.*)([0-9]{4})-\2(  IMAGIN [sS]p\. z o\.o\.)$/\1\2\3/" \
+                  -e "s/^(.*Copyright.*)([0-9]{4})(-[0-9]{4})?(  IMAGIN [sS]p\. z o\.o\.)$/\1\2-${current_year}\4/" \
+                  -e "s/^(.*Copyright.*)([0-9]{4})-\2(  IMAGIN [sS]p\. z o\.o\.)$/\1\2\3/" \
                   "${file}"
               fi
             done
