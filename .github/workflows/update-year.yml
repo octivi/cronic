@@ -13,7 +13,7 @@
 # automatically disable on: schedule execution.
 #
 # Cron in Actions may be delayed (does not guarantee execution to the minute).
-name: Update year in headers (scheduled PR)
+name: Update year in headers & create a PR
 
 on:
   schedule:
@@ -34,13 +34,13 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: update-year-header
+  group: update-year-in-headers
   cancel-in-progress: true
 
 jobs:
   update-year:
+    name: Update year in headers
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -90,7 +90,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
-          branch: update-year-header
+          branch: update-year-in-headers
           delete-branch: true
           commit-message: "chore: Update year in headers"
           title: "chore: Update year in headers"
