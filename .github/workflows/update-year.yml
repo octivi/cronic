@@ -13,7 +13,7 @@
 # automatically disable on: schedule execution.
 #
 # Cron in Actions may be delayed (does not guarantee execution to the minute).
-name: Update year header (scheduled PR)
+name: Update year in headers (scheduled PR)
 
 on:
   schedule:
@@ -45,7 +45,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Update year headers
+      - name: Update year in headers
         shell: bash
         run: |
           set -o errexit -o nounset -o pipefail
@@ -73,8 +73,8 @@ jobs:
                 sed \
                   --regexp-extended \
                   --in-place \
-                  -e "s/^(.*Copyright.*)([0-9]{4})(-[0-9]{4})?(  IMAGIN [sS]p\. z o\.o\.)$/\1\2-${current_year}\4/" \
-                  -e "s/^(.*Copyright.*)([0-9]{4})-\2(  IMAGIN [sS]p\. z o\.o\.)$/\1\2\3/" \
+                  -e "s/^(.*Copyright.*)([0-9]{4})(-[0-9]{4})?( +IMAGIN [sS]p\. z o\.o\.)$/\1\2-${current_year}\4/" \
+                  -e "s/^(.*Copyright.*)([0-9]{4})-\2( +IMAGIN [sS]p\. z o\.o\.)$/\1\2\3/" \
                   "${file}"
               fi
             done
@@ -92,10 +92,10 @@ jobs:
         with:
           branch: update-year-header
           delete-branch: true
-          commit-message: "chore: Update year header"
-          title: "chore: Update year header"
+          commit-message: "chore: Update year in headers"
+          title: "chore: Update year in headers"
           body: |
-            Automated update of year headers.
+            Automated update of year in headers.
           labels: |
             automation
             maintenance
