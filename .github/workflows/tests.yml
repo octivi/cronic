@@ -16,7 +16,7 @@ jobs:
     name: ShellCheck
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Check out repository code
         uses: actions/checkout@v6
 
       - name: Run Shellcheck
