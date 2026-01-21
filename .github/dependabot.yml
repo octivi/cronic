@@ -1,0 +1,20 @@
+---
+# SPDX-FileCopyrightText: 2025-2026  IMAGIN sp. z o.o.
+# SPDX-FileContributor: Marcin Engelmann <mengelmann@octivi.com>
+# SPDX-License-Identifier: MIT
+#
+# This file is part of the configuration created by Octivi's DevOps team.
+# Details at https://octivi.com/devops
+#
+# Be sure to enable "Dependabot alerts", "Dependabot security updates"
+# and "Dependabot version updates" in the repository settings under "Advanced Security".
+# https://docs.github.com/en/code-security/tutorials/secure-your-dependencies/dependabot-quickstart-guide#enabling-dependabot-for-your-repository
+#
+# Dependabot options reference
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
