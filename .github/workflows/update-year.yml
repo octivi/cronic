@@ -73,8 +73,8 @@ jobs:
                 sed \
                   --regexp-extended \
                   --in-place \
-                  -e "s/^(.*Copyright.*)([0-9]{4})(-[0-9]{4})?( +IMAGIN [sS]p\. z o\.o\.)$/\1\2-${current_year}\4/" \
-                  -e "s/^(.*Copyright.*)([0-9]{4})-\2( +IMAGIN [sS]p\. z o\.o\.)$/\1\2\3/" \
+                  -e "s/^(.*Copyright[^0-9]*)([0-9]{4})(-[0-9]{4})?([[:space:]]+IMAGIN [sS]p\. z o\.o\.)$/\1\2-${current_year}\4/" \
+                  -e "s/^(.*Copyright[^0-9]*)([0-9]{4})-\2([[:space:]]+IMAGIN [sS]p\. z o\.o\.)$/\1\2\3/" \
                   "${file}"
               fi
             done
