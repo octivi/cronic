@@ -52,7 +52,7 @@ jobs:
             ## Install
 
             ```
-            sudo curl -fL -o /usr/local/bin/${{ env.REPO_NAME }} https://github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}/releases/download/${{ env.TAG_NAME }}/${{ env.REPO_NAME }}
+            sudo curl -fsSLo /usr/local/bin/${{ env.REPO_NAME }} https://github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}/releases/download/${{ env.TAG_NAME }}/${{ env.REPO_NAME }}
             sudo chmod +x /usr/local/bin/${{ env.REPO_NAME }}
             ```
           generate_release_notes: true

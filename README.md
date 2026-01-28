@@ -113,7 +113,7 @@ Just download and grant execution (x) permission to `cronic`
 
 ```bash
 # or https://github.com/octivi/cronic/releases/latest/download/cronic if you want always latest release
-sudo curl -fL -o /usr/local/bin/cronic https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic
+sudo curl -fsSLo /usr/local/bin/cronic https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic
 sudo chmod +x /usr/local/bin/cronic
 ```
 
