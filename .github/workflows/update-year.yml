@@ -19,15 +19,6 @@ on:
   schedule:
     - cron: "15 2 6 1 *" # Jan 6th, 02:15 UTC
   workflow_dispatch:
-    inputs:
-      targets:
-        description: "Directories to scan (space-separated), e.g. '. src scripts'"
-        required: false
-        default: "."
-      exclude_paths:
-        description: "Paths to exclude (space-separated), e.g. '.github/workflows build'"
-        required: false
-        default: ".github/workflows"
 
 permissions:
   contents: write
@@ -46,46 +37,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Update year in headers
-        shell: bash
-        run: |
-          set -o errexit -o nounset -o pipefail
-          IFS=$'\n\t'
-
-          current_year="$(date +%Y)"
-          targets="${{ github.event.inputs.targets || '.' }}"
-          exclude_paths="${{ github.event.inputs.exclude_paths || '.github/workflows' }}"
-
-          read -r -a DIRS <<< "${targets}"
-          read -r -a EXCLUDES <<< "${exclude_paths}"
-
-          prune_args=()
-          for exclude in "${EXCLUDES[@]}"; do
-            prune_args+=(-path "./${exclude}" -prune -o)
-          done
-
-          for dir in "${DIRS[@]}"; do
-            [[ -d "${dir}" ]] || continue
-
-            find "${dir}" "${prune_args[@]}" -type f -print0 | while IFS= read -r -d '' file; do
-              if [[ "$(file --mime-type --brief "${file}")" == text/* ]]; then
-                # 1) Update: YYYY or YYYY-YYYY -> YYYY-<current_year>
-                # 2) Guard: collapse YYYY-YYYY back to YYYY (prevents 2025-2025)
-                sed \
-                  --regexp-extended \
-                  --in-place \
-                  -e "s/^(.*Copyright[^0-9]*)([0-9]{4})(-[0-9]{4})?([[:space:]]+IMAGIN [sS]p\. z o\.o\.)$/\1\2-${current_year}\4/" \
-                  -e "s/^(.*Copyright[^0-9]*)([0-9]{4})-\2([[:space:]]+IMAGIN [sS]p\. z o\.o\.)$/\1\2\3/" \
-                  "${file}"
-              fi
-            done
-          done
-
-          if git diff --quiet; then
-            echo "No changes detected."
-            exit 0
-          fi
-
-          git diff --stat
+        uses: octivi/update-copyright-year@v1
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
