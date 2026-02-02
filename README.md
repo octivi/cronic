@@ -1,5 +1,8 @@
 # Cronic
 
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org/)
+[![semver](https://img.shields.io/badge/SemVer-2.0.0-blue)](https://semver.org/spec/v2.0.0.html)
+
 This is enhanced version of [cronic](https://habilis.net/cronic/) originaly created by
 [Chuck Houpt](http://habilis.net/chuck/).
 
