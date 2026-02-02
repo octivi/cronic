@@ -39,7 +39,7 @@ jobs:
       - name: Update year in headers
         uses: octivi/update-copyright-year@v1
         with:
-          organization_regexp: "IMAGIN [sS]p\. z o\.o\."
+          organization_regexp: "IMAGIN [sS]p\\. z o\\.o\\."
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
