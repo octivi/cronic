@@ -9,6 +9,9 @@ name: Tests
 
 on:
   push:
+    # Don't run when someone pushes just tags
+    tags-ignore:
+      - "*"
   pull_request:
 
 jobs:
