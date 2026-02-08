@@ -43,6 +43,21 @@ function cleanup() {
   exit "${RET}"
 }
 
+function escape_ere() {
+  printf '%s' "$1" | sed -e 's/[][(){}.^$*+?|\\]/\\&/g'
+}
+
+function print_command() {
+  local arg="$1"
+  shift
+
+  printf '%q' "${arg}"
+  for arg in "$@"; do
+    printf ' %q' "${arg}"
+  done
+  printf '\n'
+}
+
 # Clean up on script exit.
 trap cleanup EXIT
 
@@ -57,16 +72,16 @@ set +e
 RESULT=$?
 set -e
 
-PATTERN="^${PS4:0:1}\\+${PS4:1}"
-if grep -aq "${PATTERN}" "${TRACE}"; then
-  grep -av "${PATTERN}" "${TRACE}" > "${ERR}" || true
+PATTERN="^$(escape_ere "${PS4:0:1}")+$(escape_ere "${PS4:1}")"
+if grep -aEq "${PATTERN}" "${TRACE}"; then
+  grep -aEv "${PATTERN}" "${TRACE}" > "${ERR}" || true
 else
   ERR="${TRACE}"
 fi
 
 if [[ ${RESULT} -ne 0 || -s "${ERR}" ]]; then
   echo "Cronic detected failure or error output for the command:"
-  echo "$@"
+  print_command "$@"
   echo
   echo "RESULT CODE: ${RESULT}"
   echo
