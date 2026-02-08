@@ -26,5 +26,5 @@ profile.
 
 ## Security Updates
 
-Security fixes are released on the supported major version (currently v1.x). Users should upgrade
-to the latest v1.x release.
+Security fixes are released on the supported major version (currently `v3-octivi-3.x`).
+Users should upgrade to the latest `v3-octivi-3.x` release.
