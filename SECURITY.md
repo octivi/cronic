@@ -15,7 +15,7 @@ Preferred: use [GitHub Security Advisories](https://github.com/octivi/cronic/sec
 for this repository (private disclosure).
 
 If [GitHub Security Advisories](https://github.com/octivi/cronic/security/advisories)
-are not available, [open a new issue](https://github.com/octivi/cronic/security/advisories)
+are not available, [open a new issue](https://github.com/octivi/cronic/issues/new)
 and clearly mark it as **security** in the title, or contact the maintainers via the repository owners
 profile.
 
