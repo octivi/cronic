@@ -30,6 +30,11 @@
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -o errexit -o nounset -o pipefail
 
+if [[ $# -eq 0 ]]; then
+  echo "Usage: cronic <command> [args...]" >&2
+  exit 2
+fi
+
 function cleanup() {
   local -r RET=$?
 
