@@ -76,3 +76,11 @@ if [[ ${RESULT} -ne 0 || -s "${ERR}" ]]; then
     cat "${TRACE}"
   fi
 fi
+
+if [[ ${RESULT} -ne 0 ]]; then
+  exit "${RESULT}"
+fi
+
+if [[ -s "${ERR}" ]]; then
+  exit 1
+fi
