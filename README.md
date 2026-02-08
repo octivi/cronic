@@ -3,7 +3,7 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org/)
 [![semver](https://img.shields.io/badge/SemVer-2.0.0-blue)](https://semver.org/spec/v2.0.0.html)
 
-This is enhanced version of [cronic](https://habilis.net/cronic/) originaly created by
+This is an enhanced version of [cronic](https://habilis.net/cronic/) originally created by
 [Chuck Houpt](http://habilis.net/chuck/).
 
 ## A cure for Cron's chronic email problem
@@ -36,7 +36,7 @@ sounds useful.
 Unfortunately, cron's idea of "output" is simultaneously too broad and too
 narrow to actually be useful. Cron considers *any* output to be significant -
 including standard output. This interacts badly with many unix commands, which
-often send status info to standard out. Some commands have a quiet options, but
+often send status info to standard out. Some commands have a quiet option, but
 that can turn off all error output too. To make matters worse, cron *ignores*
 command result codes, meaning that errors from quiet programs are ignored.
 
@@ -52,10 +52,10 @@ Now when your cron job fails, you will never know about it. Using cron to
 backup your files? Sorry, the cron job has been failing due to permission
 errors for months - all your files are gone.
 
-Could cron be fixed? Although almost all current implementation of cron are
+Could cron be fixed? Although almost all current implementations of cron are
 open source, cron's pathological behavior has been petrified into the [Unix
 standards](http://www.opengroup.org/onlinepubs/009695399/utilities/crontab.html).
-So if it isn't broken, it isn't cron. The only solution left is a work-around.
+So if it isn't broken, it isn't cron. The only solution left is a workaround.
 
 ## The Cure: Cronic
 
@@ -68,7 +68,7 @@ non-trace error output or a non-zero result code. Cronic filters
 anything matching
 [PS4](http://www.gnu.org/software/bash/manual/bashref.html#index-PS4-228)) from
 the error output, so jobs can be run with execution tracing to aid forensic
-debugging.  Cronic has no options, it simply executes its arguments.
+debugging. Cronic has no options, it simply executes its arguments.
 
     0 1 * * * cronic backup
 
@@ -107,6 +107,18 @@ put error messages in context.  An example:
     + cp -rp data1 /backup
     + cp -rp data2 /backup
     cp: data2: Permission denied
+
+## Exit Codes
+
+`cronic` exits with:
+
+- `0` when the wrapped command exits `0` and produces no non-trace stderr output.
+- The wrapped command exit code when the wrapped command fails.
+- `1` when the wrapped command exits `0` but produces non-trace stderr output.
+- `2` when no command is provided (`cronic` prints usage to stderr).
+
+Lines matching Bash xtrace prefixes (based on `PS4`) are filtered before stderr
+is evaluated.
 
 ## Installation
 
@@ -152,7 +164,7 @@ One simple task to install `cronic`
 
 ## Related Projects
 
-Cronic isn't the only cure for cron. Cronic's main advantage it is small,
+Cronic isn't the only cure for cron. Cronic's main advantage is that it is small,
 simple and a shell script. There are several C-based cron wrapper programs with
 many additional capabilities and options:
 
