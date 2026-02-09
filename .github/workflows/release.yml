@@ -52,8 +52,9 @@ jobs:
             ## Install
 
             ```bash
-            sudo curl -fsSLo /usr/local/bin/${{ env.REPO_NAME }} https://github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}/releases/download/${{ env.TAG_NAME }}/${{ env.REPO_NAME }}
-            sudo chmod +x /usr/local/bin/${{ env.REPO_NAME }}
+            curl -fsSLO "https://github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}/releases/download/${{ env.TAG_NAME }}/${{ env.REPO_NAME }}"
+            curl -fsSL "https://github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}/releases/download/${{ env.TAG_NAME }}/${{ env.REPO_NAME }}.sha256" | sha256sum -c -
+            sudo install -m 0755 "${{ env.REPO_NAME }}" /usr/local/bin/${{ env.REPO_NAME }}
             ```
           generate_release_notes: true
           fail_on_unmatched_files: true

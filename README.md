@@ -128,8 +128,9 @@ Just download and grant execution (x) permission to `cronic`
 
 ```bash
 # or https://github.com/octivi/cronic/releases/latest/download/cronic if you want always latest release
-sudo curl -fsSLo /usr/local/bin/cronic https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic
-sudo chmod +x /usr/local/bin/cronic
+curl -fsSLO https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic
+curl -fsSL https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic.sha256 | sha256sum -c -
+sudo install -m 0755 cronic /usr/local/bin/cronic
 ```
 
 ### Ansible
