@@ -136,7 +136,7 @@ sudo chmod +x /usr/local/bin/cronic
 
 One simple task to install `cronic`
 
-```
+```yaml
 - name: 'Install cronic'
   ansible.builtin.get_url:
     # or https://github.com/octivi/cronic/releases/latest/download/cronic if you want always latest release

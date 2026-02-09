@@ -51,7 +51,7 @@ jobs:
           body: |
             ## Install
 
-            ```
+            ```bash
             sudo curl -fsSLo /usr/local/bin/${{ env.REPO_NAME }} https://github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}/releases/download/${{ env.TAG_NAME }}/${{ env.REPO_NAME }}
             sudo chmod +x /usr/local/bin/${{ env.REPO_NAME }}
             ```
