@@ -9,6 +9,8 @@ name: Tests
 
 on:
   push:
+    branches:
+      - '**'
     # Don't run when someone pushes just tags
     tags-ignore:
       - '**'
