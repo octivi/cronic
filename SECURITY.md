@@ -2,10 +2,10 @@
 
 ## Supported Versions
 
-| Version | Supported |
-| --- | --- |
-| v3-octivi-3.x | Yes |
-| < v3-octivi-3.x | No |
+| Version         | Supported |
+| --------------- | --------- |
+| v3-octivi-3.x   | Yes       |
+| < v3-octivi-3.x | No        |
 
 ## Reporting a Vulnerability
 
@@ -19,6 +19,13 @@ are not available, [open a new issue](https://github.com/octivi/cronic/issues/ne
 and clearly mark it as **security** in the title, or contact the maintainers via the repository owners
 profile.
 
+When reporting, please include as much context as possible:
+
+- Steps to reproduce and/or a proof of concept (if feasible)
+- Impact and attack vector
+- Affected version(s) and environment
+- Logs, screenshots, or other supporting materials (avoid sharing sensitive data)
+
 ## Response Targets
 
 - Acknowledge within 7 days.
@@ -26,5 +33,5 @@ profile.
 
 ## Security Updates
 
-Security fixes are released on the supported major version (currently `v3-octivi-3.x`).
-Users should upgrade to the latest `v3-octivi-3.x` release.
+Security fixes are released on the supported major version.
+Users should upgrade to the latest release.
