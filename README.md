@@ -126,13 +126,15 @@ is evaluated.
 
 ### Manual
 
-Just download and grant execution (x) permission to `cronic`
+Just download
 
 ```bash
-# or https://github.com/octivi/cronic/releases/latest/download/cronic if you want always latest release
-curl -fsSLO https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic
-curl -fsSL https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic.sha256 | sha256sum -c -
-sudo install -m 0755 cronic /usr/local/bin/cronic
+# or https://github.com/octivi/cronic/releases/latest/download/cronic if you always want the latest release
+curl -fsSLO https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic \
+  && curl -fsSL https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic.sha256 \
+  | sha256sum -c - \
+  && sudo install -m 0755 cronic /usr/local/bin/cronic \
+  || { echo "Checksum verification failed; aborting installation." >&2; exit 1; }
 ```
 
 ### Ansible
@@ -140,17 +142,17 @@ sudo install -m 0755 cronic /usr/local/bin/cronic
 One simple task to install `cronic`
 
 ```yaml
-- name: 'Install cronic'
+- name: "Install Cronic"
   ansible.builtin.get_url:
-    # or https://github.com/octivi/cronic/releases/latest/download/cronic if you want always latest release
-    url: 'https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic'
-    dest: '/usr/local/bin/cronic'
-    owner: 'root'
-    group: 'root'
-    mode: '0755'
-    # or https://github.com/octivi/cronic/releases/latest/download/cronic.sha256 if you want always latest release
-    checksum: 'sha256:https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic.sha256'
-  register: '__cronic_download'
+    # or https://github.com/octivi/cronic/releases/latest/download/cronic if you always want the latest release
+    url: "https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic"
+    dest: "/usr/local/bin/cronic"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+    # or https://github.com/octivi/cronic/releases/latest/download/cronic.sha256 if you always want the latest release
+    checksum: "sha256:https://github.com/octivi/cronic/releases/download/v3-octivi-3.0.1/cronic.sha256"
+  register: "__cronic_download"
   until: __cronic_download is succeeded
   retries: 5
   delay: 2
