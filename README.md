@@ -36,10 +36,10 @@ the background for months at a time - so getting an email when a problem occurs
 sounds useful.
 
 Unfortunately, cron's idea of "output" is simultaneously too broad and too
-narrow to actually be useful. Cron considers *any* output to be significant -
+narrow to actually be useful. Cron considers _any_ output to be significant -
 including standard output. This interacts badly with many unix commands, which
 often send status info to standard out. Some commands have a quiet option, but
-that can turn off all error output too. To make matters worse, cron *ignores*
+that can turn off all error output too. To make matters worse, cron _ignores_
 command result codes, meaning that errors from quiet programs are ignored.
 
 It is almost impossible to create a non-trivial cron job that is quiet enough
@@ -89,7 +89,7 @@ to make sure problems are caught early. For example:
 
 When an error is detected, Cronic outputs a report listing the result code,
 error output, and combined trace and error output. The combined output can help
-put error messages in context.  An example:
+put error messages in context. An example:
 
     From: user@example.net (Cron Daemon)
     To: user@example.net
@@ -161,10 +161,10 @@ One simple task to install `cronic`
 ## Version History
 
 - [v3-octivi](https://github.com/octivi/cronic/releases) - Refactor and fix
-    errors reported by [shellcheck](https://www.shellcheck.net/).
+  errors reported by [shellcheck](https://www.shellcheck.net/).
 - v3 - Use mktemp-d to avoid race-conditions and security problems.
 - v2 - Corrected command evaluation, so shell meta-chars are preserved
-    correctly (Thanks to Frank Wallingford for the fix).
+  correctly (Thanks to Frank Wallingford for the fix).
 - v1 - Initial release.
 
 ## Related Projects
@@ -174,6 +174,6 @@ simple and a shell script. There are several C-based cron wrapper programs with
 many additional capabilities and options:
 
 - [Shush](http://web.taranis.org/shush/): a C-based cron wrapper, with multiple
-    report formats, syslogging, etc.
+  report formats, syslogging, etc.
 - [Cronwrap](https://pypi.org/project/cronwrap/): a Python cron job wrapper that
-    wraps jobs and enables better error reporting and command timeouts.
+  wraps jobs and enables better error reporting and command timeouts.
