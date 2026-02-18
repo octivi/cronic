@@ -14,10 +14,9 @@ Please do not open public issues for security vulnerabilities.
 Preferred: use [GitHub Security Advisories](https://github.com/octivi/cronic/security/advisories)
 for this repository (private disclosure).
 
-If [GitHub Security Advisories](https://github.com/octivi/cronic/security/advisories)
-are not available, [open a new issue](https://github.com/octivi/cronic/issues/new)
-and clearly mark it as **security** in the title, or contact the maintainers via the repository owners
-profile.
+If GitHub Security Advisories are not available, contact us using the details listed on
+[https://octivi.com/contact](https://octivi.com/contact) and request a private channel for
+disclosure.
 
 When reporting, please include as much context as possible:
 
