@@ -46,7 +46,7 @@ jobs:
         with:
           branch: update-year-in-headers
           delete-branch: true
-          commit-message: "chore: Update year in headers"
+          commit-message: "chore: update year in headers"
           title: Update year in headers
           body: |
             Automated update of year in headers.
