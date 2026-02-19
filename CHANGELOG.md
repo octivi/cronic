@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] - 2026-02-18
+## [v3-octivi-3.1.0] - 2026-02-19
 
 ### Added
 
@@ -31,6 +31,6 @@
 
 - Fix script file permissions and shellcheck-reported issues ([`93028f4`](https://github.com/octivi/cronic/commit/93028f4), [`9bf2708`](https://github.com/octivi/cronic/commit/9bf2708)) (Marcin Engelmann)
 
-[Unreleased]: https://github.com/octivi/cronic/compare/v3-octivi-3.0.1...HEAD
+[v3-octivi-3.1.0]: https://github.com/octivi/cronic/releases/tag/v3-octivi-3.1.0
 [v3-octivi-3.0.1]: https://github.com/octivi/cronic/releases/tag/v3-octivi-3.0.1
 [v3-octivi-3.0.0]: https://github.com/octivi/cronic/releases/tag/v3-octivi-3.0.0
