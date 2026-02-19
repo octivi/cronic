@@ -37,7 +37,7 @@ jobs:
 
       - name: Append install instructions to release notes
         run: |
-          cat <<EOF >> "${{ steps.release_notes.outputs.release_notes }}"
+          cat <<'EOF' >> "${{ steps.release_notes.outputs.release_notes }}"
 
           ## Install
 
