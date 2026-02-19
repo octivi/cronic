@@ -42,9 +42,12 @@ jobs:
           ## Install
 
           ```bash
-          curl -fsSLO "https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/releases/download/${{ github.ref_name }}/${{ github.event.repository.name }}"
-          curl -fsSL "https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/releases/download/${{ github.ref_name }}/${{ github.event.repository.name }}.sha256" | sha256sum -c -
-          sudo install -m 0755 "${{ github.event.repository.name }}" /usr/local/bin/${{ github.event.repository.name }}
+          # or https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/releases/latest/download/cronic if you always want the latest release
+          curl -fsSLO "https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/releases/download/${{ github.ref_name }}/cronic" \
+            && curl -fsSL "https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/releases/download/${{ github.ref_name }}/cronic.sha256" \
+            | sha256sum -c - \
+            && sudo install -m 0755 cronic /usr/local/bin/cronic \
+            || { echo "Checksum verification failed; aborting installation." >&2; exit 1; }
           ```
           EOF
 
