@@ -10,53 +10,53 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: "Tag to release (e.g. v1.1.1)"
-        required: true
-        type: string
+      - "v*.*.*"
 
 permissions:
   contents: write
 
 jobs:
   release:
-    name: Create release
+    name: Create GitHub Release
     runs-on: ubuntu-slim
-    env:
-      ORG_NAME: ${{ github.event.repository.owner.login }}
-      REPO_NAME: ${{ github.event.repository.name }}
-      TAG_NAME: ${{ inputs.tag || github.ref_name }}
 
     steps:
-      - name: Checkout repository at tag
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
+
+      - name: Generate release notes
+        id: release_notes
+        uses: octivi/release-notes-from-changelog@v1
         with:
-          fetch-depth: 0
-          ref: refs/tags/${{ env.TAG_NAME }} # checkout a tag, even for workflow_dispatch
+          tag: ${{ github.ref_name }}
+          changelog: CHANGELOG.md
+          release_notes: release-notes.md
 
       - name: Generate SHA256 checksum
         run: |
-          sha256sum "${{ env.REPO_NAME }}" > "${{ env.REPO_NAME }}.sha256"
+          sha256sum "${{ github.event.repository.name }}" > "${{ github.event.repository.name }}.sha256"
+
+      - name: Append install instructions to release notes
+        run: |
+          cat <<EOF >> "${{ steps.release_notes.outputs.release_notes }}"
+
+          ## Install
+
+          ```bash
+          curl -fsSLO "https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/releases/download/${{ github.ref_name }}/${{ github.event.repository.name }}"
+          curl -fsSL "https://github.com/${{ github.event.repository.owner.login }}/${{ github.event.repository.name }}/releases/download/${{ github.ref_name }}/${{ github.event.repository.name }}.sha256" | sha256sum -c -
+          sudo install -m 0755 "${{ github.event.repository.name }}" /usr/local/bin/${{ github.event.repository.name }}
+          ```
+          EOF
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ env.TAG_NAME }}
+          tag_name: ${{ github.ref_name }}
+          body_path: ${{ steps.release_notes.outputs.release_notes }}
+          generate_release_notes: false
           files: |
-            ./${{ env.REPO_NAME }}
-            ./${{ env.REPO_NAME }}.sha256
-          body: |
-            ## Install
-
-            ```bash
-            curl -fsSLO "https://github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}/releases/download/${{ env.TAG_NAME }}/${{ env.REPO_NAME }}"
-            curl -fsSL "https://github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}/releases/download/${{ env.TAG_NAME }}/${{ env.REPO_NAME }}.sha256" | sha256sum -c -
-            sudo install -m 0755 "${{ env.REPO_NAME }}" /usr/local/bin/${{ env.REPO_NAME }}
-            ```
-          generate_release_notes: true
+            ./${{ github.event.repository.name }}
+            ./${{ github.event.repository.name }}.sha256
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
